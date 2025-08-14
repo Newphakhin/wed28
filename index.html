@@ -3,274 +3,433 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phakhin Coffee - ร้านกาแฟออนไลน์</title>
+    <title>Café Aroma - Freshly Brewed Happiness</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            background: linear-gradient(135deg, #6B4E3D 0%, #8D6E63 100%);
-            min-height: 100vh;
+        .hero-bg {
+            background: linear-gradient(rgba(139, 69, 19, 0.6), rgba(160, 82, 45, 0.6)), 
+                        url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80') center/cover;
         }
-        .header {
-            background: rgba(255, 255, 255, 0.652);
-            backdrop-filter: blur(10px);
-            padding: 1rem 0;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-            position: sticky; top: 0; z-index: 100;
+        
+        .transition-all {
+            transition: all 0.3s ease-in-out;
         }
-        .nav {
-            max-width: 1200px; margin: 0 auto;
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 0 2rem;
+        
+        .hover-lift:hover {
+            transform: translateY(-5px);
         }
-        .logo {
-            display: flex; align-items: center; gap: 10px;
-            font-size: 1.5rem; font-weight: bold;
-            color: #6B4E3D; text-decoration: none;
+        
+        .hover-scale:hover {
+            transform: scale(1.05);
         }
-        .logo img {
-            height: 150px; width: auto; border-radius: 50%;
+        
+        .card-shadow {
+            box-shadow: 0 10px 25px rgba(139, 69, 19, 0.1);
         }
-        .cart-btn {
-            background: #FF6B35; color: white;
-            border: none; padding: 12px 24px; border-radius: 50px;
-            cursor: pointer; font-size: 1rem;
-            display: flex; align-items: center; gap: 8px;
-            transition: all 0.3s ease; position: relative;
+        
+        .text-coffee {
+            color: #8B4513;
         }
-        .cart-btn:hover {
-            background: #E55A2B; transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
+        
+        .bg-coffee {
+            background-color: #D2B48C;
         }
-        .cart-count {
-            background: #fff; color: #FF6B35;
-            border-radius: 50%; width: 24px; height: 24px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 0.8rem; font-weight: bold;
-            position: absolute; top: -8px; right: -8px;
+        
+        .bg-coffee-dark {
+            background-color: #8B4513;
         }
-        .hero { text-align: center; padding: 80px 2rem; color: white; }
-        .hero h1 { font-size: 3.5rem; margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
-        .hero p { font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.9; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-        .menu-section {
-            background: white; margin: 2rem 0; border-radius: 20px;
-            padding: 3rem 2rem; box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        
+        .border-coffee {
+            border-color: #CD853F;
         }
-        .section-title { text-align: center; font-size: 2.5rem; color: #6B4E3D; margin-bottom: 3rem; }
-        .menu-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+        
+        .coffee-bean {
+            width: 30px;
+            height: 40px;
+            background: #654321;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            position: relative;
         }
+        
+        .coffee-bean::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 2px;
+            height: 20px;
+            background: #8B4513;
+            border-radius: 2px;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        
         .menu-item {
-            background: #fff; border-radius: 15px; overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            transition: all 0.3s ease; position: relative;
+            background: linear-gradient(145deg, #F5F5DC, #FAEBD7);
+            border-left: 4px solid #CD853F;
         }
-        .menu-item:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(0,0,0,0.15); }
-        .menu-item-image img { width: 100%; height: 200px; object-fit: cover; }
-        .menu-item-content { padding: 1.5rem; }
-        .menu-item-name { font-size: 1.3rem; font-weight: bold; color: #333; margin-bottom: 0.5rem; }
-        .menu-item-description { color: #666; margin-bottom: 1rem; line-height: 1.4; }
-        .menu-item-footer { display: flex; justify-content: space-between; align-items: center; }
-        .menu-item-price { font-size: 1.2rem; font-weight: bold; color: #FF6B35; }
-        .add-to-cart {
-            background: #FF6B35; color: white; border: none;
-            padding: 10px 20px; border-radius: 25px;
-            cursor: pointer; transition: all 0.3s ease; font-weight: bold;
-        }
-        .add-to-cart:hover { background: #E55A2B; transform: scale(1.05); }
-
-        /* Cart Modal */
-        .cart-modal {
-            display: none; position: fixed; top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
-            justify-content: center; align-items: center;
-            z-index: 200;
-        }
-        .cart-content {
-            background: white; padding: 20px; border-radius: 15px;
-            width: 90%; max-width: 500px; max-height: 80vh; overflow-y: auto;
-        }
-        .cart-item {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 10px;
-        }
-        .cart-item img {
-            width: 50px; height: 50px; border-radius: 8px; object-fit: cover;
-        }
-        .cart-item-info { flex: 1; margin-left: 10px; }
-        .cart-item-name { font-weight: bold; }
-        .cart-item-controls button {
-            background: #FF6B35; color: white; border: none;
-            padding: 5px 10px; margin: 0 2px; border-radius: 5px;
-            cursor: pointer;
-        }
-        .cart-total { font-weight: bold; margin-top: 15px; text-align: right; }
-        .close-btn {
-            background: red; color: white; border: none;
-            padding: 8px 15px; border-radius: 8px;
-            float: right; cursor: pointer;
-        }
-        .checkout-btn {
-            background: #4CAF50; 
-            color: white; 
-            border: none; 
-            padding: 10px 20px; 
-            border-radius: 8px; 
-            margin-top: 15px; 
-            cursor: pointer; 
-            font-size: 1rem; 
-            width: 100%;
+        
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
         }
     </style>
 </head>
-<body>
-    <header class="header">
-        <nav class="nav">
-            <a href="#" class="logo">
-                <img src="9.png" alt="Phakhin Coffee Logo">
-                Phakhin Coffee
-            </a>
-            <button class="cart-btn" onclick="openCart()">
-                🛒 ตะกร้า
-                <span class="cart-count" id="cart-count">0</span>
-            </button>
-        </nav>
-    </header>
+<body class="bg-orange-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full z-50 transition-all">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <div class="coffee-bean"></div>
+                    <h1 class="text-2xl font-bold text-coffee">Café Aroma</h1>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-coffee hover:text-amber-600 transition-all">Home</a>
+                    <a href="#menu" class="text-coffee hover:text-amber-600 transition-all">Menu</a>
+                    <a href="#about" class="text-coffee hover:text-amber-600 transition-all">About</a>
+                    <a href="#contact" class="text-coffee hover:text-amber-600 transition-all">Contact</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-coffee">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="mobile-menu" class="md:hidden hidden py-4 border-t">
+                <a href="#home" class="block py-2 text-coffee hover:text-amber-600 transition-all">Home</a>
+                <a href="#menu" class="block py-2 text-coffee hover:text-amber-600 transition-all">Menu</a>
+                <a href="#about" class="block py-2 text-coffee hover:text-amber-600 transition-all">About</a>
+                <a href="#contact" class="block py-2 text-coffee hover:text-amber-600 transition-all">Contact</a>
+            </div>
+        </div>
+    </nav>
 
-    <section class="hero">
-        <h1>ยินดีต้อนรับสู่ Phakhin Coffee</h1>
-        <p>กาแฟคุณภาพเยี่ยมที่คัดสรรมาเป็นพิเศษเพื่อคุณ</p>
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg min-h-screen flex items-center justify-center text-white relative">
+        <div class="container mx-auto px-4 text-center">
+            <div class="floating">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 drop-shadow-lg">Café Aroma</h1>
+                <p class="text-xl md:text-2xl mb-8 drop-shadow-md">Freshly Brewed Happiness</p>
+            </div>
+
+        </div>
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i class="fas fa-chevron-down text-2xl text-white"></i>
+        </div>
     </section>
 
-    <div class="container">
-        <section class="menu-section">
-            <h2 class="section-title">เมนูกาแฟของเรา</h2>
-            <div class="menu-grid" id="menu-grid"></div>
-        </section>
-    </div>
+    <!-- Menu Section -->
+    <section id="menu" class="py-20 bg-gradient-to-b from-orange-50 to-amber-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-coffee mb-4">Our Special Menu</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Discover our carefully crafted beverages made from the finest coffee beans</p>
+                <div class="w-24 h-1 bg-amber-600 mx-auto mt-4"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Menu Item 1 -->
+                <div class="menu-item p-6 rounded-lg card-shadow transition-all hover-scale hover-lift">
+                    <div class="w-full h-48 rounded-lg mb-4 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Espresso Classic" class="w-full h-full object-cover hover-scale transition-all">
+                    </div>
+                    <h3 class="text-xl font-bold text-coffee mb-2">Espresso Classic</h3>
+                    <p class="text-gray-600 mb-4">Rich and bold espresso shot with perfect crema</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-amber-600">฿85</span>
+                        <button class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full transition-all">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
 
-    <!-- Cart Modal -->
-    <div class="cart-modal" id="cart-modal">
-        <div class="cart-content">
-            <button class="close-btn" onclick="closeCart()">ปิด</button>
-            <h2>ตะกร้าสินค้า</h2>
-            <div id="cart-items"></div>
-            <div class="cart-total" id="cart-total"></div>
-            <button class="checkout-btn" id="checkout-btn" onclick="checkout()">ชำระเงิน</button>
+                <!-- Menu Item 2 -->
+                <div class="menu-item p-6 rounded-lg card-shadow transition-all hover-scale hover-lift">
+                    <div class="w-full h-48 rounded-lg mb-4 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Cappuccino Supreme" class="w-full h-full object-cover hover-scale transition-all">
+                    </div>
+                    <h3 class="text-xl font-bold text-coffee mb-2">Cappuccino Supreme</h3>
+                    <p class="text-gray-600 mb-4">Perfect blend of espresso and steamed milk foam</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-amber-600">฿120</span>
+                        <button class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full transition-all">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Menu Item 3 -->
+                <div class="menu-item p-6 rounded-lg card-shadow transition-all hover-scale hover-lift">
+                    <div class="w-full h-48 rounded-lg mb-4 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1515823064-d6e0c04616a7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Matcha Latte" class="w-full h-full object-cover hover-scale transition-all">
+                    </div>
+                    <h3 class="text-xl font-bold text-coffee mb-2">Matcha Latte</h3>
+                    <p class="text-gray-600 mb-4">Premium Japanese matcha with steamed milk</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-amber-600">฿140</span>
+                        <button class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full transition-all">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Menu Item 4 -->
+                <div class="menu-item p-6 rounded-lg card-shadow transition-all hover-scale hover-lift">
+                    <div class="w-full h-48 rounded-lg mb-4 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Iced Americano" class="w-full h-full object-cover hover-scale transition-all">
+                    </div>
+                    <h3 class="text-xl font-bold text-coffee mb-2">Iced Americano</h3>
+                    <p class="text-gray-600 mb-4">Refreshing cold espresso with ice and water</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-amber-600">฿95</span>
+                        <button class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full transition-all">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-coffee-dark text-white parallax" style="background-image: linear-gradient(rgba(139, 69, 19, 0.8), rgba(139, 69, 19, 0.8)), url('data:image/svg+xml,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 1200 600&quot;><rect fill=&quot;%23654321&quot; width=&quot;1200&quot; height=&quot;600&quot;/><path fill=&quot;%23DEB887&quot; opacity=&quot;0.1&quot; d=&quot;M0,400 Q300,200 600,400 T1200,400 L1200,600 L0,600 Z&quot;/></svg>')">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl font-bold mb-6">About Café Aroma</h2>
+                    <p class="text-lg mb-6 leading-relaxed">
+                        ตั้งแต่ปี 2018 เรามุ่งมั่นที่จะนำเสนอกาแฟคุณภาพสูงจากเมล็ดกาแฟคัดสรรพิเศษ ผ่านกระบวนการคั่วที่ประณีต เพื่อสร้างประสบการณ์การดื่มกาแฟที่ไม่เหมือนใคร
+                    </p>
+                    <p class="text-lg mb-6 leading-relaxed">
+                        ด้วยบรรยากาศที่อบอุ่น บริการที่เป็นมิตร และความหลงใหลในกาแฟที่แท้จริง เราสร้างสรรค์พื้นที่แห่งความสุขให้กับทุกคนที่เดินทางมา
+                    </p>
+                    <div class="flex space-x-8">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-amber-400">50+</div>
+                            <div class="text-sm">Coffee Varieties</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-amber-400">1000+</div>
+                            <div class="text-sm">Happy Customers</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-amber-400">6</div>
+                            <div class="text-sm">Years Experience</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="w-full h-96 rounded-lg overflow-hidden card-shadow hover-scale transition-all">
+                        <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Our Cozy Café Interior" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
+                            <div class="p-6 text-white">
+                                <h3 class="text-2xl font-bold mb-2">Our Cozy Café</h3>
+                                <p class="text-lg">Warm atmosphere, perfect for relaxation</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gradient-to-b from-amber-50 to-orange-100">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-coffee mb-4">Get In Touch</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Visit us today or get in touch for any inquiries</p>
+                <div class="w-24 h-1 bg-amber-600 mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Contact Info -->
+                <div class="space-y-8">
+                    <div class="flex items-center space-x-4 p-6 bg-white rounded-lg card-shadow transition-all hover-lift">
+                        <div class="bg-amber-600 p-4 rounded-full">
+                            <i class="fas fa-phone text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-coffee">Phone</h3>
+                            <p class="text-gray-600">02-123-4567</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-4 p-6 bg-white rounded-lg card-shadow transition-all hover-lift">
+                        <div class="bg-amber-600 p-4 rounded-full">
+                            <i class="fas fa-envelope text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-coffee">Email</h3>
+                            <p class="text-gray-600">hello@cafearoma.com</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-4 p-6 bg-white rounded-lg card-shadow transition-all hover-lift">
+                        <div class="bg-amber-600 p-4 rounded-full">
+                            <i class="fas fa-map-marker-alt text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-coffee">Location</h3>
+                            <p class="text-gray-600">123 ถนนสุขุมวิท แขวงคลองเตย<br>กรุงเทพมหานคร 10110</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-4 p-6 bg-white rounded-lg card-shadow transition-all hover-lift">
+                        <div class="bg-amber-600 p-4 rounded-full">
+                            <i class="fas fa-clock text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-coffee">Opening Hours</h3>
+                            <p class="text-gray-600">Mon - Sun: 7:00 AM - 9:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Map -->
+                <div class="bg-white rounded-lg card-shadow overflow-hidden">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.669748865393!2d100.56143731540067!3d13.740493090369138!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29ecfe3c01e51%3A0x79a88dde8e6b0b0e!2sSukhumvit%20Rd%2C%20Khlong%20Toei%2C%20Bangkok%2010110!5e0!3m2!1sen!2sth!4v1640995200000!5m2!1sen!2sth" 
+                        width="100%" 
+                        height="400" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade"
+                        class="w-full h-96">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-coffee-dark text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="coffee-bean"></div>
+                        <h3 class="text-2xl font-bold">Café Aroma</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">Freshly Brewed Happiness</p>
+                    <div class="flex space-x-4">
+                        <a href="https://www.facebook.com/phakhin.phansombunn" target="_blank" rel="noopener noreferrer" class="bg-amber-600 hover:bg-amber-700 p-3 rounded-full transition-all hover-scale">
+                            <i class="fab fa-facebook text-xl"></i>
+                        </a>
+                        <a href="https://www.instagram.com/new_004x/" target="_blank" rel="noopener noreferrer" class="bg-amber-600 hover:bg-amber-700 p-3 rounded-full transition-all hover-scale">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-300 hover:text-amber-400 transition-all">Home</a></li>
+                        <li><a href="#menu" class="text-gray-300 hover:text-amber-400 transition-all">Menu</a></li>
+                        <li><a href="#about" class="text-gray-300 hover:text-amber-400 transition-all">About Us</a></li>
+                        <li><a href="#contact" class="text-gray-300 hover:text-amber-400 transition-all">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-600 mt-8 pt-8 text-center">
+                <p class="text-gray-300">&copy; 2024 Café Aroma. All rights reserved. | Made with ❤️ and ☕</p>
+            </div>
+        </div>
+    </footer>
 
     <script>
-        const menuItems = [
-            { id: 1, name: "เอสเปรสโซ่", description: "กาแฟเข้มข้น หอมกรุ่น", price: 65, image: "1.jpg" },
-            { id: 2, name: "คาปูชิโน่", description: "เอสเปรสโซ่ผสมนมฟองนุ่ม", price: 85, image: "3.jpg" },
-            { id: 3, name: "ลาเต้", description: "รสชาตินุ่มละมุน", price: 90, image: "4.jpg" },
-            { id: 4, name: "มอคค่า", description: "ผสมช็อกโกแลตหวานละมุน", price: 95, image: "6.jpeg" }
-        ];
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
 
-        let cart = [];
-
-        function createMenu() {
-            const menuGrid = document.getElementById('menu-grid');
-            menuGrid.innerHTML = '';
-            menuItems.forEach(item => {
-                const menuItemElement = document.createElement('div');
-                menuItemElement.className = 'menu-item';
-                menuItemElement.innerHTML = `
-                    <div class="menu-item-image">
-                        <img src="${item.image}" alt="${item.name}">
-                    </div>
-                    <div class="menu-item-content">
-                        <div class="menu-item-name">${item.name}</div>
-                        <div class="menu-item-description">${item.description}</div>
-                        <div class="menu-item-footer">
-                            <div class="menu-item-price">฿${item.price}</div>
-                            <button class="add-to-cart" onclick="addToCart(${item.id})">เพิ่มลงตะกร้า</button>
-                        </div>
-                    </div>
-                `;
-                menuGrid.appendChild(menuItemElement);
+        // Smooth scrolling
+        function scrollTo(target) {
+            document.querySelector(target).scrollIntoView({
+                behavior: 'smooth'
             });
         }
 
-        function addToCart(itemId) {
-            const item = menuItems.find(i => i.id === itemId);
-            const existingItem = cart.find(i => i.id === itemId);
-            if (existingItem) {
-                existingItem.quantity += 1;
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('bg-opacity-95', 'backdrop-blur-sm');
             } else {
-                cart.push({ ...item, quantity: 1 });
+                nav.classList.remove('bg-opacity-95', 'backdrop-blur-sm');
             }
-            updateCartCount();
-        }
+        });
 
-        function updateCartCount() {
-            const count = cart.reduce((total, item) => total + item.quantity, 0);
-            document.getElementById('cart-count').textContent = count;
-        }
-
-        function openCart() {
-            const cartItemsContainer = document.getElementById('cart-items');
-            const checkoutBtn = document.getElementById('checkout-btn');
-            cartItemsContainer.innerHTML = '';
-            let total = 0;
-
-            cart.forEach(item => {
-                total += item.price * item.quantity;
-                cartItemsContainer.innerHTML += `
-                    <div class="cart-item">
-                        <img src="${item.image}" alt="${item.name}">
-                        <div class="cart-item-info">
-                            <div class="cart-item-name">${item.name}</div>
-                            <div>฿${item.price} x ${item.quantity}</div>
-                        </div>
-                        <div class="cart-item-controls">
-                            <button onclick="changeQuantity(${item.id}, 1)">+</button>
-                            <button onclick="changeQuantity(${item.id}, -1)">-</button>
-                            <button onclick="removeItem(${item.id})">ลบ</button>
-                        </div>
-                    </div>
-                `;
-            });
-
-            document.getElementById('cart-total').textContent = `รวมทั้งหมด: ฿${total}`;
-            checkoutBtn.style.display = cart.length > 0 ? 'block' : 'none';
-            document.getElementById('cart-modal').style.display = 'flex';
-        }
-
-        function closeCart() {
-            document.getElementById('cart-modal').style.display = 'none';
-        }
-
-        function changeQuantity(itemId, change) {
-            const item = cart.find(i => i.id === itemId);
-            if (item) {
-                item.quantity += change;
-                if (item.quantity <= 0) {
-                    cart = cart.filter(i => i.id !== itemId);
+        // Add click event to all nav links
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
                 }
-                updateCartCount();
-                openCart();
-            }
-        }
+                // Close mobile menu if open
+                mobileMenu.classList.add('hidden');
+            });
+        });
 
-        function removeItem(itemId) {
-            cart = cart.filter(i => i.id !== itemId);
-            updateCartCount();
-            openCart();
-        }
+        // Animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
 
-        function checkout() {
-            alert("ไปหน้าชำระเงิน");
-            // window.location.href = 'checkout.html'; // ถ้ามีหน้าชำระเงินจริง
-        }
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
 
-        document.addEventListener('DOMContentLoaded', () => {
-            createMenu();
+        // Observe menu items and other elements
+        document.querySelectorAll('.menu-item, .card-shadow').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Add some interactivity to menu buttons
+        document.querySelectorAll('.menu-item button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Add simple animation feedback
+                button.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    button.style.transform = 'scale(1)';
+                }, 150);
+                
+                // You could add actual cart functionality here
+                console.log('Added to cart!');
+            });
         });
     </script>
 </body>
